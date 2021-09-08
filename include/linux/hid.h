@@ -551,6 +551,8 @@ static inline void hid_set_drvdata(struct hid_device *hdev, void *data)
 #define HID_COLLECTION_STACK_SIZE 4
 
 #define HID_SCAN_FLAG_MT_WIN_8			0x00000001
+#define HID_SCAN_FLAG_VENDOR_SPECIFIC		0x00000002
+#define HID_SCAN_FLAG_GD_POINTER		0x00000003
 
 struct hid_parser {
 	struct hid_global     global;
@@ -670,8 +672,8 @@ struct hid_driver {
 	int (*input_mapped)(struct hid_device *hdev,
 			struct hid_input *hidinput, struct hid_field *field,
 			struct hid_usage *usage, unsigned long **bit, int *max);
-	void (*input_configured)(struct hid_device *hdev,
-				 struct hid_input *hidinput);
+	int (*input_configured)(struct hid_device *hdev,
+				struct hid_input *hidinput);
 	void (*feature_mapping)(struct hid_device *hdev,
 			struct hid_field *field,
 			struct hid_usage *usage);
